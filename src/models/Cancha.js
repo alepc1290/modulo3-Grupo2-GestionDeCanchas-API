@@ -9,7 +9,7 @@ const canchaSchema = new mongoose.Schema(
     },
     tipo: {
       type: String,
-      enum: ["futbol5", "futbol7", "futbol11"],
+      enum: ["futbolSala", "futbol5", "futbol7", "futbol11"],
       required: [true, "El tipo de cancha es requerido"],
     },
     precio: {

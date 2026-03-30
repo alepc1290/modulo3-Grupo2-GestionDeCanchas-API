@@ -170,13 +170,12 @@ export async function verifyEmail(req, res) {
   }
 }
 
-// 🔥 GOOGLE LOGIN CALLBACK (MODIFICADO)
 export function googleLoginCallback(req, res) {
   try {
     const user = req.user;
 
     if (!user) {
-      return res.redirect(`http://localhost:3000/test?error=google_auth_failed`);
+      return res.redirect(`${FRONT_URL}auth/google/success?error=google_auth_failed`);
     }
 
     const payload = {
@@ -188,14 +187,15 @@ export function googleLoginCallback(req, res) {
 
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "7d" });
 
-    // 🔥 CAMBIO CLAVE (SIN FRONT)
-    return res.redirect(`http://localhost:3000/test?token=${token}`);
+    const frontUrl = FRONT_URL.endsWith("/") ? FRONT_URL : `${FRONT_URL}/`;
+    return res.redirect(`${frontUrl}auth/google/success?token=${token}`);
   } catch (error) {
-    return res.redirect(`http://localhost:3000/test?error=server_error`);
+    console.error("❌ Error en googleLoginCallback:", error);
+    const frontUrl = FRONT_URL.endsWith("/") ? FRONT_URL : `${FRONT_URL}/`;
+    return res.redirect(`${frontUrl}auth/google/success?error=server_error`);
   }
 }
 
-// GOOGLE CALENDAR (no tocar)
 export function googleAuthRedirect(req, res) {
   const url = getAuthUrl();
   return res.redirect(url);
