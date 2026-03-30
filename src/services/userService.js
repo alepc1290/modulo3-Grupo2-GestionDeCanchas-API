@@ -13,7 +13,7 @@ export async function getUserById(id) {
 }
 
 export async function getAllUsers() {
-  return await User.find({ deleted: false }).select("-password");
+  return await User.find({ deleted: false }).select("-password -verificationToken -verificationTokenExpires -googleAccessToken -googleRefreshToken -__v -deleted");
 }
 
 export async function deleteUser(id) {
