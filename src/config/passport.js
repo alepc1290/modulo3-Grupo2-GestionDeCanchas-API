@@ -9,11 +9,10 @@ passport.use(
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
       callbackURL: `${BACKEND_URL}/api/auth/google/callback`,
-      passReqToCallback: false,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        console.log("✅ GOOGLE PROFILE:", profile); // 👈 DEBUG CLAVE
+        console.log("✅ GOOGLE PROFILE:", profile);
 
         // ⚠️ VALIDACIÓN FUERTE
         if (!profile || !profile.emails || profile.emails.length === 0) {
